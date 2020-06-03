@@ -1,11 +1,18 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import logo from './logo.svg';
 import './App.css';
+import Test from './component/Test';
+import Contact from "./component/Contact"
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+        <Router>
+          <Route exact path="/test" component={Test} />
+          <Route exact path="/contact" component={Contact} />
+        </Router>
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
@@ -18,7 +25,7 @@ function App() {
         >
           Learn React
         </a>
-      </header>
+      </header> */}
     </div>
   );
 }
