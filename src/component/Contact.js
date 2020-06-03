@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-expressions */
 import React, { Component } from 'react';
 import SingleContact from "./SingleContact";
-import "../assests/css/Contact.css"
+import "../assests/css/Contact.css";
+import TextField from "./TextField";
 
 class Contact extends Component {
     state = {
@@ -36,7 +37,8 @@ class Contact extends Component {
     };
 
     onChange = (event) => {
-        this.setState({ [event.target.name]: event.target.value }); // To Make Input Field Editable- Sudama [02/06/2020]
+        this.setState({ [event.target.name]: event.target.value });
+        console.log(event.target) // To Make Input Field Editable- Sudama [02/06/2020]
     };
 
     // To add contact on button click- Sudama [02/06/2020]
@@ -109,7 +111,9 @@ class Contact extends Component {
                     <div className="form-row mt-4">
                         {/* Name Input Field - Sudama [02/06/2020]*/}
                         <div className="form-group col-sm-5">
-                            <input type="text" className="form-control" id="exampleInputName" aria-describedby="=nameHelp" 
+                            <TextField 
+                            type="text"
+                            id="exampleInputName"
                             name="contact_name"
                             placeholder="Enter Your Name"
                             value={this.state.contact_name}
@@ -121,11 +125,13 @@ class Contact extends Component {
 
                         {/* Mobile No. Input Field - Sudama [02/06/2020]*/}
                         <div className="form-group col-sm-5">
-                            <input type="text" className="form-control" id="exampleInputMobile" aria-describedby="mobileHelp"
-                            name="mobile_no"
-                            placeholder="Enter Your Mobile No."
-                            value={this.state.mobile_no}
-                            onChange={this.onChange}/>
+                            <TextField 
+                                type="text"
+                                id="exampleInputMobile"
+                                name="mobile_no"
+                                placeholder="Enter Your Mobile No."
+                                value={this.state.mobile_no}
+                                onChange={this.onChange}/>
                         </div>
                         <div className="form-group col-sm-2">
                             <button onClick={() => this.addContact()} type="button" className="btn btn-primary">{this.state.editable ? "Update Contact" : "Add Contact" } </button>
@@ -139,17 +145,13 @@ class Contact extends Component {
                 <div className="d-flex flex-row flex-wrap">
                     {/* Mapping Used to display all contact card using array - Sudama [02/06/2020]*/}
                         {this.state.contacts?.map((data, index) => (
-                            <div className=" contact_card card m-2" style={{width: "fit-content", minWidth: "15rem"}}>
-                            {/* Delete Icon  - Sudama [02/06/2020]*/}
-                            <div onClick={() => this.deleteContact(index)} style={{position: "absolute", right: "10px", top: "20px", color: "red"}}><i className="fas fa-trash" /></div>
-                            <div onClick={() => this.editContact(index)} style={{position: "absolute", right: "30px", top: "20px", color: "red"}}><i className="fas fa-edit" /></div>
-                            {/* Contact Info - Sudama [02/06/2020]*/}
-                            <div className="card-body">
-                                <h5 className="card-title">Contact No. {index + 1}</h5>
-                                <h6 className="card-subtitle mb-2 text-muted">Name: {data.name}</h6>
-                                <h6 className="card-subtitle mb-2 text-muted">Mobile No.: {data.mobile}</h6>
-                            </div>
-                        </div>
+                            <SingleContact 
+                                name = {data.name}
+                                mobile = {data.mobile}
+                                index = {index}
+                                onEditClick = {() => this.editContact(index)}
+                                onDeleteCLick = {() => this.deleteContact(index)}
+                            />
                     ))}
                 </div>
                 
